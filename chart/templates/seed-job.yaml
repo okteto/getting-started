@@ -1,21 +1,23 @@
-apiVersion: apps/v1
-kind: Deployment
+{{- if .Values.seed.enabled }}
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: api
+  name: seed
 spec:
-  replicas: {{ .Values.api.replicaCount }}
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: api
+  activeDeadlineSeconds: 300
+  completions: 1
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: api
+        job-name: "seed"
     spec:
-      terminationGracePeriodSeconds: 0
+      restartPolicy: OnFailure
       containers:
-        - name: api
+        - name: seed
           image: {{ .Values.api.image }}
+          command:
+            - yarn
+            - load
           env:
             - name: MONGODB_PASSWORD
               valueFrom:
@@ -28,3 +30,4 @@ spec:
               value: okteto
             - name: MONGODB_HOST
               value: mongodb
+{{- end }}

@@ -6,5 +6,8 @@ frontend:
   replicaCount: 1
   image: okteto/movies:frontend
 
+seed:
+  enabled: false
+
 mongodb:
-  password: "Password!1@2"
+  password: "change-me!"
