@@ -1,0 +1,10 @@
+api:
+  replicaCount: 1
+  image: okteto/movies:api
+
+frontend:
+  replicaCount: 1
+  image: okteto/movies:frontend
+
+mongodb:
+  password: "Password!1@2"
