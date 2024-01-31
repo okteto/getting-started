@@ -1,0 +1,28 @@
+dependencies:
+  mongodb:
+    repository: https://github.com/okteto/mongodb-with-compose
+    wait: true
+
+build:
+  api:
+    context: api
+  frontend:
+    context: frontend
+
+deploy:
+  commands:
+    - name: Deploy
+      command: |
+        helm upgrade --install movies chart \
+          --set mongodb.password=${MONGODB_PASSWORD} \
+          --set seed.enabled=true \
+          --set api.image=${OKTETO_BUILD_API_IMAGE} \
+          --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
+
+dev:
+  api:
+    command: yarn start
+    sync:
+      - api:/src
+    forward:
+      - 9229:9229
