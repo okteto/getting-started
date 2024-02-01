@@ -11,7 +11,7 @@ build:
 
 deploy:
   commands:
-    - name: Deploy
+    - name: Helm Install
       command: |
         helm upgrade --install movies chart \
           --set mongodb.password=${MONGODB_PASSWORD} \
