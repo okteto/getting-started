@@ -1,6 +1,6 @@
 dependencies:
   mongodb:
-    repository: https://github.com/okteto/mongodb-with-compose
+    repository: https://github.com/okteto/mongodb
     wait: true
 
 build:
