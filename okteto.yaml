@@ -10,6 +10,7 @@ build:
     context: frontend
 
 deploy:
+  remote: true
   commands:
     - name: Helm Install
       command: |
@@ -26,3 +27,9 @@ dev:
       - api:/src
     forward:
       - 9229:9229
+
+  frontend:
+    image: okteto/node:14
+    command: bash
+    sync:
+      - frontend:/usr/src/app
