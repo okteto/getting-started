@@ -3,6 +3,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: seed
+  annotations:
+    dev.okteto.com/sample: "true"
 spec:
   activeDeadlineSeconds: 300
   completions: 1
