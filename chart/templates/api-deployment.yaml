@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: api
+      annotations:
+        checksum/secrets: {{ include (print $.Template.BasePath "/mongodb-secret.yaml") . | sha256sum }}
     spec:
       terminationGracePeriodSeconds: 0
       containers:
