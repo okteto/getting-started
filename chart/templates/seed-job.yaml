@@ -3,8 +3,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: seed
-  annotations:
-    dev.okteto.com/sample: "true"
 spec:
   activeDeadlineSeconds: 300
   completions: 1
@@ -16,7 +14,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: seed
-          image: {{ .Values.api.image }}
+          image: okteto/movies:api
           command:
             - yarn
             - load
