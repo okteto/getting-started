@@ -1,10 +1,10 @@
 api:
   replicaCount: 1
-  image: okteto/movies:api
+  image: okteto/getting-started:api
 
 frontend:
   replicaCount: 1
-  image: okteto/movies:frontend
+  image: okteto/getting-started:frontend
 
 seed:
   enabled: false

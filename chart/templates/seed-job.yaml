@@ -14,7 +14,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: seed
-          image: okteto/movies:api
+          image: okteto/getting-started:api
           command:
             - yarn
             - load
