@@ -27,7 +27,7 @@ function startWithRetry() {
 
     app.get("/api/movies", (req, res, next) => {
       console.log(`GET /api/movies`)
-      const promise = db.collection('watching').find().toArray();
+      const promise = db.collection('movies').find().toArray();
 
       promise.catch((err) => {
         console.log(`failed to query movies: ${err}`);
@@ -39,7 +39,7 @@ function startWithRetry() {
 
     app.get("/api/watching", (req, res, next) => {
       console.log(`GET /api/watching`)
-      const promise = db.collection('movies').find().toArray();
+      const promise = db.collection('watching').find().toArray();
 
       promise.catch((err) => {
         console.log(`failed to query watching: ${err}`);
