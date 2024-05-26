@@ -57,14 +57,19 @@ module.exports = {
     port: 80,
     host: '0.0.0.0',
     hot: true,
-    sockPort: 443,
-    disableHostCheck: true,
-    watchOptions: {
-      poll: true
+    client: {
+      webSocketURL: {
+        port: 443,
+      },
     },
-    proxy: {
-      '/api': 'http://movies-api:8080'
-    }
+    allowedHosts: 'all',
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://movies-api:8080',
+      },
+    ],
+
   },
   cache: {
     type: 'filesystem',
