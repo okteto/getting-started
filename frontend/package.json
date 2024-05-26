@@ -24,8 +24,8 @@
   },
   "scripts": {
     "start": "yarn devel",
-    "devel": "NODE_OPTIONS=--openssl-legacy-provider webpack serve",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack",
+    "devel": "webpack serve",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserslist": [
