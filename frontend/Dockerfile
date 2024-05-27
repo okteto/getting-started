@@ -1,4 +1,4 @@
-FROM node:16 as dev
+FROM node:20 as dev
 
 WORKDIR /src
 
