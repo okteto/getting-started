@@ -1,4 +1,7 @@
 class MongoClient {
+  static insertedMovies = [];
+  static insertedWatching = [];
+
   constructor(url, options) {
     this.url = url;
     this.options = options;
@@ -21,9 +24,25 @@ class MongoClient {
               reject('unknown collection');
             }
           })
-        })
+        }),
+        insertMany: (docs, callback) => {
+          if (collection === 'movies') MongoClient.insertedMovies = docs;
+          if (collection === 'watching') MongoClient.insertedWatching = docs;
+          callback();
+        }
       })
     };
+  }
+
+  static get mock() {
+    return {
+      insertedMovies: MongoClient.insertedMovies,
+      insertedWatching: MongoClient.insertedWatching,
+      reset: () => {
+        MongoClient.insertedMovies = [];
+        MongoClient.insertedWatching = [];
+      }
+    }
   }
 }
 
