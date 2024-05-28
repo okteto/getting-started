@@ -4,6 +4,8 @@ dependencies:
   mongodb:
     repository: https://github.com/okteto/mongodb
     wait: true
+    variables:
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
 
 build:
   api:
@@ -42,3 +44,6 @@ dev:
     command: bash
     sync:
       - e2e:/usr/src/app
+
+
+
