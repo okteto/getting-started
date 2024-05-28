@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export class Loader extends Component {
   render() {
     return (
-      <div className="Loader">
+      <div className="Loader" data-testid="loader">
         <svg version="1.1" id="loader" x="0px" y="0px"
           width="40px"
           height="40px"
