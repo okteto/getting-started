@@ -1,6 +1,11 @@
 import { MongoClient } from 'mongodb';
 
-const url = `mongodb://${process.env.MONGODB_USERNAME}:${encodeURIComponent(process.env.MONGODB_PASSWORD)}@${process.env.MONGODB_HOST}.${process.env.OKTETO_NAMESPACE}:27017/${process.env.MONGODB_DATABASE}`;
+const user = process.env.MONGODB_USERNAME;
+const password = encodeURIComponent(process.env.MONGODB_PASSWORD);
+const host = `${process.env.MONGODB_HOST}.${process.env.OKTETO_NAMESPACE}`;
+const database = process.env.MONGODB_DATABASE;
+
+const url = `mongodb://${user}:${password}@${host}:27017/${database}`;
 
 export const getStoredData = async () => {
   const client = new MongoClient(url);
