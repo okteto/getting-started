@@ -1,5 +1,13 @@
 name: movies
 
+dependencies:
+  mongodb:
+    repository: https://github.com/okteto/mongodb
+    wait: true
+
 deploy:
   - name: Helm Install
-    command: helm upgrade --install movies chart
+    command: |
+      helm upgrade --install movies chart \
+        --set mongodb.password=${MONGODB_PASSWORD} \
+        --set seed.enabled=true
