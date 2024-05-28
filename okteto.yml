@@ -10,6 +10,8 @@ build:
     context: api
   frontend:
     context: frontend
+  e2e:
+    context: e2e
 
 deploy:
   - name: Helm Install
@@ -18,7 +20,8 @@ deploy:
         --set mongodb.password=${MONGODB_PASSWORD} \
         --set seed.enabled=true \
         --set api.image=${OKTETO_BUILD_API_IMAGE} \
-        --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
+        --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE} \
+        --set e2e.image=${OKTETO_BUILD_E2E_IMAGE}
 
 dev:
   api:
@@ -33,3 +36,9 @@ dev:
     command: bash
     sync:
       - frontend:/usr/src/app
+
+  e2e:
+    image: okteto/node:20
+    command: bash
+    sync:
+      - e2e:/usr/src/app
