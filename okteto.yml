@@ -19,3 +19,17 @@ deploy:
         --set seed.enabled=true \
         --set api.image=${OKTETO_BUILD_API_IMAGE} \
         --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
+
+dev:
+  api:
+    command: bash
+    sync:
+      - api:/src
+    forward:
+      - 9229:9229
+
+  frontend:
+    image: okteto/node:20
+    command: bash
+    sync:
+      - frontend:/usr/src/app
