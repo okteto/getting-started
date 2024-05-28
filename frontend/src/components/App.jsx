@@ -7,7 +7,7 @@ import { TitleList } from './TitleList';
 
 import userAvatarImage from '../assets/images/user.jpg';
 
-import './App.css';
+import './style.css';
 
 class App extends Component {
   constructor(props) {
