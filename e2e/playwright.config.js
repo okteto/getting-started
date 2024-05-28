@@ -1,4 +1,3 @@
-// @ts-check
 import { defineConfig, devices } from '@playwright/test';
 
 const BASE_URL = `https://movies-${process.env.OKTETO_NAMESPACE}.${process.env.OKTETO_DOMAIN}`;

@@ -1,4 +1,3 @@
-// @ts-check
 import { test, expect } from '@playwright/test';
 
 test('displays the header', async ({ page }) => {
