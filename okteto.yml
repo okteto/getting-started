@@ -1,0 +1,5 @@
+name: movies
+
+deploy:
+  - name: Helm Install
+    command: helm upgrade --install movies chart
