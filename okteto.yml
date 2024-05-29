@@ -46,7 +46,20 @@ dev:
       - e2e:/usr/src/app
 
 test:
+  setup:
+    context: api
+    image: ${OKTETO_BUILD_API_IMAGE}
+    commands:
+      - |
+        export MONGODB_PASSWORD=password
+        export MONGODB_USERNAME=okteto
+        export MONGODB_DATABASE=okteto
+        export MONGODB_HOST=mongodb
+        yarn load
+
   e2e:
+    depends_on:
+      - setup
     context: e2e
     image: ${OKTETO_BUILD_E2E_IMAGE}
     commands:
