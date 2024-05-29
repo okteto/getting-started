@@ -50,9 +50,6 @@ test:
     context: e2e
     image: ${OKTETO_BUILD_E2E_IMAGE}
     commands:
-      # OKTETO_DOMAIN is not properly propagated so hardcoding it here.
-      # See: https://github.com/okteto/okteto/pull/4324
-      #
       # If test fails, we don't want to fail the pipeline so we exit with 0, otherwise
       # the artifacts won't be synced.
       - |
@@ -60,7 +57,6 @@ test:
         export MONGODB_USERNAME=okteto
         export MONGODB_DATABASE=okteto
         export MONGODB_HOST=mongodb
-        export OKTETO_DOMAIN=product.okteto.dev
         yarn test || exit 0
     artifacts:
       - test-results
