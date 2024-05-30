@@ -6,12 +6,11 @@ This example shows how to leverage [Okteto](https://www.okteto.com/) to develop 
 - A very simple Node.js API using [Express](https://expressjs.com)
 - A job to initialize a MongoDB database
 
+![Movies app final appearance](next-ui-movies.png)
+
 This is a representation of the Movies app running in a Development Environment:
 
 ![Movies app architecture](deploy-movies-app.png)
 
-### Dependencies
+Follow this guide to deploy the [Movies app to Okteto](https://www.okteto.com/docs/get-started/deploy-your-app/).
 
-The Movies app depends on a [MongoDB](https://www.mongodb.com) database.
-
-![Movies app final appearance](next-ui-movies.png)
