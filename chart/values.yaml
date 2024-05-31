@@ -5,9 +5,3 @@ api:
 frontend:
   replicaCount: 1
   image: okteto/getting-started:frontend
-
-seed:
-  enabled: false
-
-mongodb:
-  password: "change-me!"
