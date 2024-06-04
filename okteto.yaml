@@ -1,0 +1,67 @@
+build:
+  frontend:
+    context: frontend
+
+  api:
+    context: api
+
+dependencies:
+  mongodb:
+    repository: https://github.com/okteto/mongodb
+    wait: true
+    variables:
+      MONGODB_PASSWORD: password    
+
+deploy:
+  - name: Helm Install
+    command: |
+      helm upgrade --install movies chart \
+        --set api.image=${OKTETO_BUILD_API_IMAGE} \
+        --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
+
+test:
+  frontend:
+    image: node:20
+    context: frontend
+    caches:
+      - yarn/.cache
+      - node_modules
+    commands:
+      - yarn install
+      - yarn test
+
+  api:
+    image: node:20
+    context: api
+    caches:
+      - yarn/.cache
+      - node_modules
+    commands:
+      - yarn install
+      - yarn test
+
+  e2e:
+    image: okteto/playwright:chromium
+    context: e2e
+    caches:
+      - yarn/.cache
+      - node_modules
+    commands:
+      - bash run_tests.sh
+    artifacts:
+      - test-results
+      - playwright-report
+
+dev:
+  api:
+    command: yarn start
+    sync:
+      - api:/src
+    forward:
+      - 9229:9229
+
+  frontend:
+    image: okteto/node:20
+    command: bash
+    sync:
+      - frontend:/usr/src/app
