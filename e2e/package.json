@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "install-browsers": "playwright install-deps",
+    "install-browsers": "playwright install --with-deps",
     "test": "playwright test"
   },
   "dependencies": {

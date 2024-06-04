@@ -1,11 +1,5 @@
-FROM node:20
+FROM playwright/chromium:playwright-1.44.1
 
-WORKDIR /usr/src/app
+USER 0
 
-COPY package.json yarn.lock ./
-RUN yarn install
-
-RUN yarn install-browsers
-
-COPY . .
-CMD ["yarn", "test"]
+RUN corepack enable yarn
