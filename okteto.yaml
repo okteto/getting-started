@@ -13,6 +13,11 @@ dependencies:
       MONGODB_PASSWORD: password    
 
 deploy:
+  - name: Output env variables
+    command: |
+      echo "!!!!!!!!!Jonathan Outputting env vars!!!"
+      echo "PACKAGE_NAME=${"PACKAGE_NAME}"
+      echo "TEST_VAR=${"TEST_VAR}"
   - name: Helm Install
     command: |
       helm upgrade --install movies chart \
