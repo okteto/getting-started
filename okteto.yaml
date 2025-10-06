@@ -10,7 +10,8 @@ dependencies:
     repository: https://github.com/okteto/mongodb
     wait: true
     variables:
-      MONGODB_PASSWORD: password    
+      MONGODB_ROOT_PASSWORD: password
+      MONGODB_DB_PASSWORD: password
 
 deploy:
   - name: Helm Install

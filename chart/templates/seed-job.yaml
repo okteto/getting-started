@@ -25,4 +25,4 @@ spec:
             - name: MONGODB_DATABASE
               value: okteto
             - name: MONGODB_USERNAME
-              value: okteto
+              value: root
