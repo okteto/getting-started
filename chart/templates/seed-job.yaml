@@ -13,7 +13,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: seed
-          image: okteto/getting-started:api
+          image: ghcr.io/okteto/getting-started:api
           command:
             - yarn
             - load

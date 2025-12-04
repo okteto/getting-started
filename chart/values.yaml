@@ -1,7 +1,7 @@
 api:
   replicaCount: 1
-  image: okteto/getting-started:api
+  image: ghcr.io/okteto/getting-started:api
 
 frontend:
   replicaCount: 1
-  image: okteto/getting-started:frontend
+  image: ghcr.io/okteto/getting-started:frontend
