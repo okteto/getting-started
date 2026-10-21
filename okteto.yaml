@@ -30,18 +30,8 @@ test:
       - yarn install
       - yarn test
 
-  api:
-    image: node:20
-    context: api
-    caches:
-      - yarn/.cache
-      - node_modules
-    commands:
-      - yarn install
-      - yarn test
-
   e2e:
-    image: okteto/playwright:chromium
+    image: ghcr.io/okteto/playwright:chromium
     context: e2e
     caches:
       - yarn/.cache
