@@ -13,7 +13,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: seed
-          image: ghcr.io/okteto/getting-started:api
+          image: {{ .Values.api.image }}
           command:
             - yarn
             - load
