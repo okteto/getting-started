@@ -2,6 +2,12 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: seed
+  annotations:
+    # Run as a hook so every install/upgrade recreates the Job instead of
+    # patching it: a Job's pod template is immutable, so a new api image
+    # would otherwise make "helm upgrade" fail.
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   activeDeadlineSeconds: 500000
   completions: 1
