@@ -66,47 +66,20 @@ This runs every test container in the `test` section against the deployed enviro
 single suite, use `okteto test frontend` or `okteto test e2e`. Playwright reports are written to
 `e2e/playwright-report/` and `e2e/test-results/`.
 
-All tests must pass before opening a merge request. If a test fails, read the output and the
+All tests must pass before the change is considered done. If a test fails, read the output and the
 Playwright report, fix the root cause, and go back to step 1. Never disable, skip, or weaken a test
 to make it pass unless the user explicitly asks for it.
 
-### 4. Create a merge request in GitLab
+### 4. Report the results
 
-The source repository is `okteto/getting-started` on gitlab.com, and merge requests target its
-`main` branch. Use the `glab` CLI (check authentication with `glab auth status`; if it is not
-authenticated, ask the user to run `! glab auth login`).
+Tell the user the results of `okteto build`, `okteto deploy`, and `okteto test` (pass/fail per test
+suite), and the endpoints from `okteto endpoints` used for testing.
 
-1. Create a branch if you are on `main`:
-   ```bash
-   git checkout -b <short-descriptive-branch-name>
-   ```
-2. Stage only the files you changed, by name. Never use `git add -A` or `git add .`: the working
-   tree can contain untracked local files (for example Kubernetes dumps with tokens) that must not
-   be committed. Review `git status` and `git diff --staged` before committing.
-3. Commit with a concise message in the imperative mood, matching the existing history
-   (for example "Make the api to MongoDB arrow one-directional").
-4. Push the branch and open the merge request against the source repository:
-   ```bash
-   git push -u origin HEAD
-   glab mr create \
-     --repo okteto/getting-started \
-     --target-branch main \
-     --title "<commit-style title>" \
-     --description "<summary>" \
-     --remove-source-branch \
-     --yes
-   ```
-   If `origin` is a fork, push to the fork and keep `--repo okteto/getting-started` so the merge
-   request targets the source repository.
-5. The merge request description must include:
-   - What changed and why
-   - The results of `okteto build`, `okteto deploy`, and `okteto test` (pass/fail per test suite)
-   - The endpoints from `okteto endpoints` that were used for testing
-6. Report the merge request URL back to the user.
+## Committing
 
-Opening the merge request triggers `.gitlab-ci.yml`, which deploys a Preview Environment named
-`mr-<MR number>` and runs `okteto test` against it. After creating the merge request, check the
-pipeline with `glab ci status` and report any failures to the user.
+Only commit when the user asks. Stage the files you changed by name; never use `git add -A` or
+`git add .`. The working tree can contain untracked local files (for example Kubernetes dumps with
+tokens) that must not be committed. Review `git status` and `git diff --staged` before committing.
 
 ## Cleanup
 
