@@ -25,10 +25,10 @@ class MongoClient {
             }
           })
         }),
-        insertMany: (docs, callback) => {
+        insertMany: (docs) => {
           if (collection === 'movies') MongoClient.insertedMovies = docs;
           if (collection === 'watching') MongoClient.insertedWatching = docs;
-          callback();
+          return Promise.resolve();
         }
       })
     };

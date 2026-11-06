@@ -12,32 +12,28 @@ client.on('connectionClosed', ({ error }) => {
   setTimeout(loadWithRetry, 300);
 });
 
-var insert = function(collection, data, resolve, reject) {
+// The MongoDB driver v6 doesn't support callbacks: insertMany returns a promise.
+async function insert(collection, data) {
   const d = require(data);
   d.results.forEach((doc) => {
     doc._id = doc.id;
   });
-  collection.insertMany(d.results, (err, r) => {
-    if (err) {
-      if (err.code != 11000) {
-        return reject(err);
-      }
+  try {
+    await collection.insertMany(d.results);
+  } catch (err) {
+    // Ignore duplicate key errors when the data is already loaded
+    if (err.code != 11000) {
+      throw err;
     }
-
-    resolve();
-  });
+  }
 }
 
 function loadWithRetry() {
-  var promises = [];
   const db = client.db(process.env.MONGODB_DATABASE);
-  promises.push(new Promise((resolve, reject)=>{
-    insert(db.collection('movies'), "./data/movies.json", resolve, reject);
-  }));
-
-  promises.push(new Promise((resolve, reject)=>{
-    insert(db.collection('watching'), "./data/watching.json", resolve, reject);
-  }));
+  const promises = [
+    insert(db.collection('movies'), "./data/movies.json"),
+    insert(db.collection('watching'), "./data/watching.json"),
+  ];
 
   Promise.all(promises)
   .then(function() {
