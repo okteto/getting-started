@@ -5,13 +5,6 @@ build:
   api:
     context: api
 
-dependencies:
-  mongodb:
-    repository: https://github.com/okteto/mongodb
-    wait: true
-    variables:
-      MONGODB_PASSWORD: password    
-
 deploy:
   - name: Helm Install
     command: |
