@@ -21,17 +21,18 @@ deploy:
 
 test:
   frontend:
-    image: node:20
+    image: node:26
     context: frontend
     caches:
       - yarn/.cache
       - node_modules
     commands:
+      - npm install --global yarn
       - yarn install
       - yarn test
 
   e2e:
-    image: ghcr.io/okteto/playwright:chromium
+    image: mcr.microsoft.com/playwright:v1.65.1-noble
     context: e2e
     caches:
       - yarn/.cache
