@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom'
 
 import { Item } from './Item';
 
@@ -9,7 +8,7 @@ const props = {
   // A sample of a movie
   title: 'The Godfather',
   score: 9.2,
-  backdrop: 'backdrop.jpg',
+  backdrop: 'https://image.tmdb.org/t/p/original/backdrop.jpg',
 };
 
 describe('Item', () => {
@@ -29,6 +28,6 @@ describe('Item', () => {
   it('should render the backdrop', () => {
     const { getByTestId } = render(<Item {...props} />);
 
-    expect(getByTestId('item-container')).toHaveStyle('background-image: url(backdrop.jpg);');
+    expect(getByTestId('item-container')).toHaveStyle('background-image: url(https://image.tmdb.org/t/p/original/backdrop.jpg);');
   });
 });

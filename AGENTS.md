@@ -11,7 +11,7 @@ database, deployed to Kubernetes with the Helm chart in `chart/`. End-to-end tes
 - `build`: images for `frontend` and `api`
 - `deploy`: `helm upgrade --install movies chart` with the built images. The chart deploys the
   `frontend` and `api` services, MongoDB (official `mongo` image), and a `seed` job that loads the data
-- `test`: `frontend` (unit tests with Jest) and `e2e` (Playwright against the deployed app)
+- `test`: `frontend` (unit tests with Vitest) and `e2e` (Playwright against the deployed app)
 
 Do not run the app or tests with local `npm`/`docker` as a substitute for the workflow below.
 Use the Okteto Manifest so that what you validate is what CI and Preview Environments run.
