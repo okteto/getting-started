@@ -1,9 +1,9 @@
-FROM node:20
+FROM node:26.13.1-trixie-slim
 
 WORKDIR /src
 
-COPY package.json yarn.lock ./
-RUN yarn install
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
 COPY . .
-CMD ["yarn", "start"]
+CMD ["node", "server.js"]

@@ -16,22 +16,19 @@ deploy:
 
 test:
   frontend:
-    image: node:26
+    image: node:26.13.1-trixie-slim
     context: frontend
     caches:
-      - yarn/.cache
-      - node_modules
+      - /root/.npm
     commands:
-      - npm install --global yarn
-      - yarn install
-      - yarn test
+      - npm ci
+      - npm test
 
   e2e:
     image: mcr.microsoft.com/playwright:v1.65.1-noble
     context: e2e
     caches:
-      - yarn/.cache
-      - node_modules
+      - /root/.npm
     commands:
       - bash run_tests.sh
     artifacts:

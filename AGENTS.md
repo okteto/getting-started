@@ -13,7 +13,7 @@ database, deployed to Kubernetes with the Helm chart in `chart/`. End-to-end tes
   `frontend` and `api` services, MongoDB (official `mongo` image), and a `seed` job that loads the data
 - `test`: `frontend` (unit tests with Jest) and `e2e` (Playwright against the deployed app)
 
-Do not run the app or tests with local `yarn`/`docker` as a substitute for the workflow below.
+Do not run the app or tests with local `npm`/`docker` as a substitute for the workflow below.
 Use the Okteto Manifest so that what you validate is what CI and Preview Environments run.
 
 ## Required workflow for every change

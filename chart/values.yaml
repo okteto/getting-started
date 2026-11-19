@@ -7,4 +7,4 @@ frontend:
   image: ghcr.io/okteto/getting-started:frontend
 
 mongodb:
-  image: mongo:9.0
+  image: mongo:9.0.8

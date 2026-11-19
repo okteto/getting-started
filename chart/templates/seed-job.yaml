@@ -21,8 +21,8 @@ spec:
         - name: seed
           image: {{ .Values.api.image }}
           command:
-            - yarn
-            - load
+            - node
+            - load.js
           env:
             - name: MONGODB_HOST
               value: mongodb
