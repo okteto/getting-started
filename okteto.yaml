@@ -6,11 +6,13 @@ build:
     context: api
 
 deploy:
-  - name: Helm Install
-    command: |
-      helm upgrade --install movies chart \
-        --set api.image=${OKTETO_BUILD_API_IMAGE} \
-        --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
+  image: alpine/helm:4.3.2
+  commands:
+    - name: Helm Install
+      command: |
+        helm upgrade --install movies chart \
+          --set api.image=${OKTETO_BUILD_API_IMAGE} \
+          --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
 
 test:
   frontend:
@@ -35,17 +37,3 @@ test:
     artifacts:
       - test-results
       - playwright-report
-
-dev:
-  api:
-    command: yarn start
-    sync:
-      - api:/src
-    forward:
-      - 9229:9229
-
-  frontend:
-    image: okteto/node:20
-    command: bash
-    sync:
-      - frontend:/usr/src/app
