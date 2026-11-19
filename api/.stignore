@@ -1,0 +1,10 @@
+# Files that "okteto up" does not synchronize with the development container.
+
+# Files generated inside the development container
+/node_modules
+/coverage
+
+# Local-only files
+.vscode
+.idea
+.DS_Store
