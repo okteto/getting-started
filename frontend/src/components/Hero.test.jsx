@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom'
 
 import { Hero } from './Hero';
 
-jest.mock('../assets/images/movie-bg.jpg', () => 'movie-bg.jpg');
+// jsdom resolves relative URLs in styles, so the mock returns an absolute one
+vi.mock('../assets/images/movie-bg.jpg', () => ({ default: 'https://movies.example.com/assets/movie-bg.jpg' }));
 
 describe('Hero', () => {
   it('should render without crashing', () => {
@@ -31,6 +31,6 @@ describe('Hero', () => {
   it('should render the backdrop', () => {
     const { container } = render(<Hero />);
 
-    expect(container.firstChild).toHaveStyle('background-image: url(movie-bg.jpg);');
+    expect(container.firstChild).toHaveStyle('background-image: url(https://movies.example.com/assets/movie-bg.jpg);');
   });
 });

@@ -1,41 +1,48 @@
 build:
-  frontend:
-    context: frontend
+  api-dev:
+    context: api
+    target: dev
 
   api:
     context: api
+    target: prod
+    depends_on:
+      - api-dev
 
-dependencies:
-  mongodb:
-    repository: https://github.com/okteto/mongodb
-    wait: true
-    variables:
-      MONGODB_PASSWORD: password    
+  frontend-dev:
+    context: frontend
+    target: dev
+
+  frontend:
+    context: frontend
+    target: prod
+    depends_on:
+      - frontend-dev
 
 deploy:
-  - name: Helm Install
-    command: |
-      helm upgrade --install movies chart \
-        --set api.image=${OKTETO_BUILD_API_IMAGE} \
-        --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
+  image: alpine/helm:4.3.2
+  commands:
+    - name: Helm Install
+      command: |
+        helm upgrade --install movies chart \
+          --set api.image=${OKTETO_BUILD_API_IMAGE} \
+          --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
 
 test:
   frontend:
-    image: node:20
+    image: ${OKTETO_BUILD_FRONTEND_DEV_IMAGE}
     context: frontend
     caches:
-      - yarn/.cache
-      - node_modules
+      - /root/.npm
     commands:
-      - yarn install
-      - yarn test
+      - npm ci
+      - npm test
 
   e2e:
-    image: ghcr.io/okteto/playwright:chromium
+    image: mcr.microsoft.com/playwright:v1.65.1-noble
     context: e2e
     caches:
-      - yarn/.cache
-      - node_modules
+      - /root/.npm
     commands:
       - bash run_tests.sh
     artifacts:
@@ -44,14 +51,19 @@ test:
 
 dev:
   api:
-    command: yarn start
+    image: ${OKTETO_BUILD_API_DEV_IMAGE}
+    command: node --watch --inspect server.js
     sync:
-      - api:/src
+      - api:/usr/src/app
+    persistentVolume:
+      enabled: false
     forward:
       - 9229:9229
 
   frontend:
-    image: okteto/node:20
-    command: bash
+    image: ${OKTETO_BUILD_FRONTEND_DEV_IMAGE}
+    command: npm run dev
     sync:
       - frontend:/usr/src/app
+    persistentVolume:
+      enabled: false

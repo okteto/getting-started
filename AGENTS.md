@@ -5,15 +5,18 @@ Instructions for coding agents (Claude Code and others) working in this reposito
 ## Project overview
 
 The Movies app: a React frontend (`frontend/`), a Node.js/Express API (`api/`), and a MongoDB
-dependency, deployed to Kubernetes with the Helm chart in `chart/`. End-to-end tests live in `e2e/`
+database, deployed to Kubernetes with the Helm chart in `chart/`. End-to-end tests live in `e2e/`
 (Playwright). Everything is driven by the Okteto Manifest in `okteto.yaml`:
 
-- `build`: images for `frontend` and `api`
-- `dependencies`: MongoDB, deployed from https://github.com/okteto/mongodb
-- `deploy`: `helm upgrade --install movies chart` with the built images
-- `test`: `frontend` (unit tests with Jest) and `e2e` (Playwright against the deployed app)
+- `build`: the application images of `frontend` and `api`, and their development images
+  (`frontend-dev` and `api-dev`, the `dev` stage of each `Dockerfile`)
+- `deploy`: `helm upgrade --install movies chart` with the built images. The chart deploys the
+  `frontend` and `api` services, MongoDB (official `mongo` image), and a `seed` job that loads the data
+- `test`: `frontend` (unit tests with Vitest) and `e2e` (Playwright against the deployed app)
+- `dev`: Development Containers for `api` (`node --watch`) and `frontend` (the Vite dev server),
+  for `okteto up`
 
-Do not run the app or tests with local `yarn`/`docker` as a substitute for the workflow below.
+Do not run the app or tests with local `npm`/`docker` as a substitute for the workflow below.
 Use the Okteto Manifest so that what you validate is what CI and Preview Environments run.
 
 ## Required workflow for every change
@@ -46,7 +49,7 @@ use `okteto build api` or `okteto build frontend`.
 okteto deploy --wait
 ```
 
-This deploys the MongoDB dependency and the Helm chart in the current Okteto namespace. Once it
+This deploys the Helm chart, MongoDB included, in the current Okteto namespace. Once it
 finishes, get the public endpoints with:
 
 ```bash

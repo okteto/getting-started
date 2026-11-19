@@ -1,12 +1,15 @@
-FROM node:20
+FROM node:26.13.1-trixie-slim AS dev
 
-# setup okteto message
-COPY bashrc /root/.bashrc
-
-WORKDIR /src
-
-COPY package.json yarn.lock ./
-RUN yarn install
-
+WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
-CMD ["yarn", "start"]
+
+FROM node:26.13.1-trixie-slim AS prod
+
+WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+COPY . .
+ENV NODE_ENV=production
+CMD ["node", "server.js"]

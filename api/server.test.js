@@ -5,7 +5,7 @@ const { listen, get } = express();
 
 const visit = (url, resMock) => {
   const [, cb] = get.mock.calls.find(([endpoint]) => endpoint === url);
-  cb(undefined, resMock);
+  return cb(undefined, resMock);
 }
 
 describe('server.js', () => {
@@ -24,9 +24,7 @@ describe('server.js', () => {
   it('should have a movies endpoint', async () => {
     const json = jest.fn();
 
-    visit('/api/movies', { json });
-
-    await new Promise(process.nextTick);
+    await visit('/api/movies', { json });
 
     expect(json).toHaveBeenCalledWith([{ title: 'The Matrix' }]);
   });
@@ -34,9 +32,7 @@ describe('server.js', () => {
   it('should have a watching endpoint', async () => {
     const json = jest.fn();
 
-    visit('/api/watching', { json });
-
-    await new Promise(process.nextTick);
+    await visit('/api/watching', { json });
 
     expect(json).toHaveBeenCalledWith([{ title: 'The Godfather' }]);
   });

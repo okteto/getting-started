@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { act, render, within } from '@testing-library/react';
-import '@testing-library/jest-dom'
 
 import App from './App';
 
 const originalFetch = global.fetch;
-const mockFetch = jest.fn((endpoint) => Promise.resolve({
+const mockFetch = vi.fn((endpoint) => Promise.resolve({
   json: () => Promise.resolve(endpoint === '/api/movies' ? [
     {
       id: 1,

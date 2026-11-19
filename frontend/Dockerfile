@@ -1,13 +1,12 @@
-FROM node:20 as dev
+FROM node:26.13.1-trixie-slim AS dev
 
-WORKDIR /src
-
-COPY package.json yarn.lock ./
-RUN yarn install
+WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
+RUN npm run build
 
-RUN yarn build
+FROM nginx:1.30.7-alpine AS prod
 
-FROM nginx:alpine
-COPY --from=dev /src/dist /usr/share/nginx/html
+COPY --from=dev /usr/src/app/dist /usr/share/nginx/html
 EXPOSE 80
