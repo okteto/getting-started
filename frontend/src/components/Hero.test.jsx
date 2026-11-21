@@ -17,8 +17,8 @@ describe('Hero', () => {
   it('should render the content', () => {
     const { getByRole, getByText } = render(<Hero />);
 
-    expect(getByRole('heading', { name: 'Bohemian Rhapsody' })).toBeVisible();
-    expect(getByText(/Queen take the music world/)).toBeVisible();
+    expect(getByRole('heading', { name: 'Rollback to the Future' })).toBeVisible();
+    expect(getByText(/A bad release sends production back/)).toBeVisible();
   });
 
   it('should render the buttons', () => {

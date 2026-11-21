@@ -10,12 +10,12 @@ const props = {
   titles: [
     {
       id: 1,
-      name: 'The Godfather',
+      name: 'The Podfather',
       vote_average: 9.2,
     },
     {
       id: 2,
-      original_title: 'The Shawshank Redemption',
+      original_title: 'The Finalizer',
       vote_average: 9.3,
     }
   ],
@@ -39,10 +39,10 @@ describe('TitleList', () => {
 
     expect(queryByTestId('loader')).not.toBeInTheDocument();
 
-    expect(getByText('The Godfather')).toBeVisible();
+    expect(getByText('The Podfather')).toBeVisible();
     expect(getByText('9.2 / 10')).toBeVisible();
 
-    expect(getByText('The Shawshank Redemption')).toBeVisible();
+    expect(getByText('The Finalizer')).toBeVisible();
     expect(getByText('9.3 / 10')).toBeVisible();
   });
 

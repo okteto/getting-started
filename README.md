@@ -9,6 +9,8 @@ This example shows how to leverage [Okteto](https://www.okteto.com/) to develop 
 
 ![Movies app final appearance](images/next-ui-movies.png)
 
+The movies are Okteto originals from the Kubernetes world, such as *Crash Loop Backoff* and *The Podfather*. Their posters are drawn in `frontend/posters` and served by the frontend from `frontend/public/posters`.
+
 This is a representation of the Movies app running in a Development Environment:
 
 ![Movies app architecture](images/deploy-movies-app.png)

@@ -9,23 +9,23 @@ const mockFetch = vi.fn((endpoint) => Promise.resolve({
   json: () => Promise.resolve(endpoint === '/api/movies' ? [
     {
       id: 1,
-      name: 'The Godfather',
+      name: 'The Podfather',
       vote_average: 9.2,
     },
     {
       id: 2,
-      original_title: 'The Shawshank Redemption',
+      original_title: 'The Finalizer',
       vote_average: 9.3,
     }
   ] : [
     {
       id: 3,
-      name: 'The Dark Knight',
+      name: 'Kube',
       vote_average: 9.1,
     },
     {
       id: 4,
-      original_title: 'The Lord of the Rings',
+      original_title: 'Moby Dock',
       vote_average: 9.4,
     }
   ]),
@@ -75,16 +75,16 @@ describe('App', () => {
   it('should render the movies and watching list', async () => {
     const { findByText } = await act(() => render(<App />));
 
-    expect(await findByText('The Godfather')).toBeVisible();
+    expect(await findByText('The Podfather')).toBeVisible();
     expect(await findByText('9.2 / 10')).toBeVisible();
 
-    expect(await findByText('The Shawshank Redemption')).toBeVisible();
+    expect(await findByText('The Finalizer')).toBeVisible();
     expect(await findByText('9.3 / 10')).toBeVisible();
 
-    expect(await findByText('The Dark Knight')).toBeVisible();
+    expect(await findByText('Kube')).toBeVisible();
     expect(await findByText('9.1 / 10')).toBeVisible();
 
-    expect(await findByText('The Lord of the Rings')).toBeVisible();
+    expect(await findByText('Moby Dock')).toBeVisible();
     expect(await findByText('9.4 / 10')).toBeVisible();
   });
 });

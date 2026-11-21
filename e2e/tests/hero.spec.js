@@ -4,9 +4,9 @@ test('displays the hero', async ({ page }) => {
   await page.goto('/');
 
   // Hero content
-  await expect(page.getByText('Bohemian Rhapsody')).toBeVisible();
+  await expect(page.getByText('Rollback to the Future')).toBeVisible();
   await expect(page.getByText(
-    "Queen take the music world by storm when they form the rock 'n' roll band in 1970."
+    "A bad release sends production back to 1.21. Only one rollback can save the future."
   )).toBeVisible();
 
   // Click the play button

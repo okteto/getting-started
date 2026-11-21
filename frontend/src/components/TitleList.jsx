@@ -10,7 +10,8 @@ export class TitleList extends Component {
       titles = this.props.titles.map((title, i) => {
         if (i < 4) {
           let name = '';
-          const backDrop = `https://image.tmdb.org/t/p/original${title.backdrop_path}`;
+          // The posters are static files of the frontend, in public/posters
+          const backDrop = title.backdrop_path;
           if (!title.name) {
             name = title.original_title;
           } else {
