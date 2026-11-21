@@ -5,14 +5,12 @@ Instructions for coding agents (Claude Code and others) working in this reposito
 ## Project overview
 
 The Movies app: a React frontend (`frontend/`), a Node.js/Express API (`api/`), and a MongoDB
-database, deployed to Kubernetes with Helm: the chart in `chart/` for the app, and the Bitnami chart
-for MongoDB. End-to-end tests live in `e2e/`
+database, deployed to Kubernetes with the Helm chart in `chart/`. End-to-end tests live in `e2e/`
 (Playwright). Everything is driven by the Okteto Manifest in `okteto.yaml`:
 
 - `build`: the images of `frontend` and `api`
-- `deploy`: two Helm commands. The first one installs MongoDB with the Bitnami chart, and the second
-  one installs the chart in `chart/` with the built images: the `frontend` and `api` services, and a
-  `seed` job that loads the data
+- `deploy`: `helm upgrade --install movies chart` with the built images. The chart deploys the
+  `frontend` and `api` services, MongoDB (official `mongo` image), and a `seed` job that loads the data
 - `test`: `e2e` (Playwright against the deployed app). The unit tests of `frontend` (Vitest) and
   `api` (Jest) aren't in the Okteto Manifest: run them with `npm test` in their folders
 
@@ -49,7 +47,7 @@ use `okteto build api` or `okteto build frontend`.
 okteto deploy --wait
 ```
 
-This deploys MongoDB and the Helm chart of the app in the current Okteto namespace. Once it
+This deploys the Helm chart, MongoDB included, in the current Okteto namespace. Once it
 finishes, get the public endpoints with:
 
 ```bash
