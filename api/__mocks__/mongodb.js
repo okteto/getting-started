@@ -1,5 +1,6 @@
 class MongoClient {
-  static insertedMovies = [];
+  static operations = [];
+  static deleted = null;
   static updates = [];
 
   constructor(url, options) {
@@ -30,8 +31,12 @@ class MongoClient {
           // Only the movie with the id 1 exists
           return Promise.resolve(filter._id === 1 ? { _id: 1, original_title: 'The Podfather', ...update.$set } : null);
         },
-        insertMany: (docs) => {
-          if (collection === 'movies') MongoClient.insertedMovies = docs;
+        bulkWrite: (operations) => {
+          if (collection === 'movies') MongoClient.operations = operations;
+          return Promise.resolve();
+        },
+        deleteMany: (filter) => {
+          if (collection === 'movies') MongoClient.deleted = filter;
           return Promise.resolve();
         }
       })
@@ -40,7 +45,8 @@ class MongoClient {
 
   static get mock() {
     return {
-      insertedMovies: MongoClient.insertedMovies,
+      operations: MongoClient.operations,
+      deleted: MongoClient.deleted,
       updates: MongoClient.updates,
     }
   }
