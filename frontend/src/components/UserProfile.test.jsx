@@ -6,7 +6,6 @@ import { UserProfile } from './UserProfile';
 
 const user = {
   name: 'Cindy',
-  lastName: 'Lopez',
   avatar: 'avatar.jpg'
 };
 
@@ -17,10 +16,10 @@ describe('UserProfile', () => {
     expect(container.firstChild).not.toBeNull();
   });
 
-  it('should render the user name and last name', () => {
+  it('should render the user name', () => {
     const { getByText } = render(<UserProfile user={user} />);
 
-    expect(getByText('Cindy Lopez')).toBeVisible();
+    expect(getByText('Cindy')).toBeVisible();
   });
 
   it('should render the user avatar', () => {

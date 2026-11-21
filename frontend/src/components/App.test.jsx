@@ -1,35 +1,24 @@
 import React from 'react';
 
-import { act, render, within } from '@testing-library/react';
+import { act, fireEvent, render, within } from '@testing-library/react';
 
 import App from './App';
 
+const movies = [
+  { id: 1, original_title: 'The Podfather', vote_average: 9.2, favorite: true },
+  { id: 2, original_title: 'OOMKilled', vote_average: 7.4, favorite: false },
+];
+
 const originalFetch = global.fetch;
-const mockFetch = vi.fn((endpoint) => Promise.resolve({
-  json: () => Promise.resolve(endpoint === '/api/movies' ? [
-    {
-      id: 1,
-      name: 'The Godfather',
-      vote_average: 9.2,
-    },
-    {
-      id: 2,
-      original_title: 'The Shawshank Redemption',
-      vote_average: 9.3,
-    }
-  ] : [
-    {
-      id: 3,
-      name: 'The Dark Knight',
-      vote_average: 9.1,
-    },
-    {
-      id: 4,
-      original_title: 'The Lord of the Rings',
-      vote_average: 9.4,
-    }
-  ]),
+const mockFetch = vi.fn((endpoint, options) => Promise.resolve({
+  json: () => Promise.resolve(options?.method === 'PUT'
+    ? { ...movies.find(({ id }) => endpoint === `/api/movies/${id}`), ...JSON.parse(options.body) }
+    : movies),
 }));
+
+const section = (container, title) => within(
+  [...container.querySelectorAll('.TitleList')].find((list) => within(list).queryByRole('heading', { name: title }))
+);
 
 describe('App', () => {
   beforeAll(() => {
@@ -51,40 +40,43 @@ describe('App', () => {
   });
 
   it('should render the header', async () => {
-    const { container, getByRole, getByText } = await act(() => render(<App />));
+    const { container, getByText, queryByRole } = await act(() => render(<App />));
 
     expect(container.querySelector('.logo')).toBeVisible();
-
-    const menu = getByRole('list')
-
-    expect(within(menu).getByText('Home')).toBeVisible();
-    expect(within(menu).getByText('Movies')).toBeVisible();
-    expect(within(menu).getByText('My List')).toBeVisible();
-
-    expect(getByText('Cindy Lopez')).toBeVisible();
+    expect(queryByRole('list')).not.toBeInTheDocument();
+    expect(getByText('Cindy')).toBeVisible();
   });
 
-  it('should fetch the user data', async () => {
+  it('should fetch the movies', async () => {
     await act(() => render(<App />));
 
-    expect(global.fetch).toHaveBeenCalledTimes(2);
-    expect(global.fetch).toHaveBeenNthCalledWith(1, '/api/movies');
-    expect(global.fetch).toHaveBeenNthCalledWith(2, '/api/watching');
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledWith('/api/movies');
   });
 
-  it('should render the movies and watching list', async () => {
-    const { findByText } = await act(() => render(<App />));
+  it('should render the favorites and the movies', async () => {
+    const { container, findByText } = await act(() => render(<App />));
 
-    expect(await findByText('The Godfather')).toBeVisible();
-    expect(await findByText('9.2 / 10')).toBeVisible();
+    await findByText('The Podfather');
 
-    expect(await findByText('The Shawshank Redemption')).toBeVisible();
-    expect(await findByText('9.3 / 10')).toBeVisible();
+    expect(section(container, "Cindy's Favorites").getByText('The Podfather')).toBeVisible();
+    expect(section(container, "Cindy's Favorites").getByText('9.2 / 10')).toBeVisible();
 
-    expect(await findByText('The Dark Knight')).toBeVisible();
-    expect(await findByText('9.1 / 10')).toBeVisible();
+    expect(section(container, 'Movies').getByText('OOMKilled')).toBeVisible();
+    expect(section(container, 'Movies').getByText('7.4 / 10')).toBeVisible();
+  });
 
-    expect(await findByText('The Lord of the Rings')).toBeVisible();
-    expect(await findByText('9.4 / 10')).toBeVisible();
+  it('should move a movie to the favorites', async () => {
+    const { container, findByText, getByRole } = await act(() => render(<App />));
+
+    await findByText('OOMKilled');
+    await act(() => fireEvent.click(getByRole('button', { name: 'Add OOMKilled to favorites' })));
+
+    expect(global.fetch).toHaveBeenLastCalledWith('/api/movies/2', expect.objectContaining({
+      method: 'PUT',
+      body: JSON.stringify({ favorite: true }),
+    }));
+    expect(section(container, "Cindy's Favorites").getByText('OOMKilled')).toBeVisible();
+    expect(section(container, 'Movies').getByText('Every movie is a favorite.')).toBeVisible();
   });
 });

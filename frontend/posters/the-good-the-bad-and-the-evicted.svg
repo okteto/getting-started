@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+<rect width="1600" height="900" fill="#e9c98a"/>
+<rect x="30" y="30" width="1540" height="840" fill="none" stroke="#5a2d0c" stroke-width="8"/>
+<rect x="48" y="48" width="1504" height="804" fill="none" stroke="#5a2d0c" stroke-width="2"/>
+<g><polygon points="960,234 1043,282 1043,378 960,426 877,378 877,282" fill="#f6e7c4" stroke="#2b1a0e" stroke-width="8" stroke-linejoin="round"/><polyline points="877,282 960,330 1043,282" fill="none" stroke="#2b1a0e" stroke-width="8" stroke-linejoin="round"/><line x1="960" y1="330" x2="960" y2="426" stroke="#2b1a0e" stroke-width="8"/><ellipse cx="960" cy="232" rx="120" ry="17" fill="#f6e7c4"/><path d="M834,228 C840,158 876,148 900,160 C924,148 960,158 966,228 Z" fill="#f6e7c4"/><rect x="894" y="213" width="132" height="12" fill="#2b1a0e"/></g>
+<g><polygon points="1190,234 1273,282 1273,378 1190,426 1107,378 1107,282" fill="#2b1a0e" stroke="#f6e7c4" stroke-width="8" stroke-linejoin="round"/><polyline points="1107,282 1190,330 1273,282" fill="none" stroke="#f6e7c4" stroke-width="8" stroke-linejoin="round"/><line x1="1190" y1="330" x2="1190" y2="426" stroke="#f6e7c4" stroke-width="8"/><ellipse cx="1190" cy="232" rx="120" ry="17" fill="#2b1a0e"/><path d="M1064,228 C1070,158 1106,148 1130,160 C1154,148 1190,158 1196,228 Z" fill="#2b1a0e"/><rect x="1124" y="213" width="132" height="12" fill="#b3261e"/></g>
+<g transform="rotate(24 1410 360)" opacity="0.9"><polygon points="1410,254 1493,302 1493,398 1410,446 1327,398 1327,302" fill="#b3261e" stroke="#2b1a0e" stroke-width="8" stroke-linejoin="round"/><polyline points="1327,302 1410,350 1493,302" fill="none" stroke="#2b1a0e" stroke-width="8" stroke-linejoin="round"/><line x1="1410" y1="350" x2="1410" y2="446" stroke="#2b1a0e" stroke-width="8"/></g>
+<g transform="translate(1325 150) rotate(18)"><ellipse cx="0" cy="0" rx="96" ry="13" fill="#b3261e"/><path d="M-53,-4 C-48,-60 -19,-67 0,-58 C19,-67 48,-60 53,-4 Z" fill="#b3261e"/><rect x="-53" y="-15" width="106" height="10" fill="#2b1a0e"/></g>
+<text x="960" y="505" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#2b1a0e">Running</text>
+<text x="1190" y="505" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#2b1a0e">Pending</text>
+<text x="1410" y="505" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#b3261e">Evicted</text>
+<text x="110" y="210" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="92" fill="#2b1a0e">THE GOOD,</text>
+<text x="110" y="315" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="92" fill="#2b1a0e">THE BAD</text>
+<text x="110" y="395" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="52" fill="#2b1a0e">and the</text>
+<text x="104" y="540" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="150" fill="#b3261e">EVICTED</text>
+<text x="114" y="640" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="40" fill="#5a2d0c">Three pods. One node. Not enough memory.</text>
+<text x="114" y="800" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="26" letter-spacing="6" fill="#8a5a2b">AN OKTETO ORIGINAL</text></svg>

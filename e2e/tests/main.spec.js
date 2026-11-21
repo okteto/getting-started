@@ -10,6 +10,7 @@ test('has title', async ({ page }) => {
 test('matches screenshot', async ({ page }) => {
   await page.goto('/');
 
-  // The page matches the screenshot
-  await expect(page).toHaveScreenshot('movies.png');
+  // The header and the hero match the screenshot. The lists of movies are
+  // not part of it: they change when you move a movie to the favorites.
+  await expect(page.locator('.Hero')).toHaveScreenshot('hero.png');
 });
