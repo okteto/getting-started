@@ -4,7 +4,7 @@ This example shows how to leverage [Okteto](https://www.okteto.com/) to develop 
 
 - A *React* based frontend, built with [Vite](https://vite.dev) and tested with [Vitest](https://vitest.dev)
 - A Node.js API using [Express](https://expressjs.com), which lists the movies and saves your favorites
-- A MongoDB database, with the official `mongo` image
+- A MongoDB database, deployed with the [Bitnami Helm chart](https://github.com/bitnami/charts/tree/main/bitnami/mongodb)
 - A job to initialize the MongoDB database
 
 ![Movies app final appearance](images/next-ui-movies.png)

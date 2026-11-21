@@ -5,6 +5,3 @@ api:
 frontend:
   replicaCount: 1
   image: ghcr.io/okteto/getting-started:frontend
-
-mongodb:
-  image: mongo:9.0.8

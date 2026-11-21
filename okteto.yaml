@@ -8,7 +8,16 @@ build:
 deploy:
   image: alpine/helm:4.3.2
   commands:
-    - name: Helm Install
+    - name: Deploy MongoDB
+      command: |
+        helm upgrade --install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb \
+          --version 20.0.21 \
+          --set auth.rootPassword=password \
+          --set "auth.usernames={okteto}" \
+          --set "auth.passwords={password}" \
+          --set "auth.databases={okteto}"
+
+    - name: Deploy the Movies app
       command: |
         helm upgrade --install movies chart \
           --set api.image=${OKTETO_BUILD_API_IMAGE} \
