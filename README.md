@@ -11,7 +11,7 @@ This example shows how to leverage [Okteto](https://www.okteto.com/) to develop 
 
 The movies are Okteto originals from the Kubernetes world, such as *Crash Loop Backoff* and *The Podfather*. The star of a movie moves it between the favorites and the rest of the movies, and the API saves the change in MongoDB. The posters are drawn in `frontend/posters` and served by the frontend from `frontend/public/posters`.
 
-This is a representation of the Movies app running in a Development Environment:
+This is a representation of the Movies app running in an application environment:
 
 ![Movies app architecture](images/deploy-movies-app.png)
 
