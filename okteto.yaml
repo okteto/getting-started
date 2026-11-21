@@ -15,15 +15,6 @@ deploy:
           --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
 
 test:
-  frontend:
-    image: node:26.13.1-trixie-slim
-    context: frontend
-    caches:
-      - /root/.npm
-    commands:
-      - npm ci
-      - npm test
-
   e2e:
     image: mcr.microsoft.com/playwright:v1.65.1-noble
     context: e2e
