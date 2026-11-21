@@ -17,15 +17,8 @@ describe('Hero', () => {
   it('should render the content', () => {
     const { getByRole, getByText } = render(<Hero />);
 
-    expect(getByRole('heading', { name: 'Rollback to the Future' })).toBeVisible();
-    expect(getByText(/A bad release sends production back/)).toBeVisible();
-  });
-
-  it('should render the buttons', () => {
-    const { getByRole } = render(<Hero />);
-
-    expect(getByRole('link', { name: 'Play' })).toBeVisible();
-    expect(getByRole('link', { name: 'My list' })).toBeVisible();
+    expect(getByRole('heading', { name: 'Movies from the Kubernetes World' })).toBeVisible();
+    expect(getByText(/Okteto originals about what every cluster has lived through/)).toBeVisible();
   });
 
   it('should render the backdrop', () => {

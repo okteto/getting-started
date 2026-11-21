@@ -1,15 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class UserProfile extends Component {
-  render() {
-    const { user } = this.props;
-    return (
-      <div className="UserProfile">
-        <div className="User">
-          <div className="name">{`${user.name} ${user.lastName}`}</div>
-          <div className="image"><img src={user.avatar} alt="profile" /></div>
-        </div>
+export function UserProfile({ user }) {
+  return (
+    <div className="UserProfile">
+      <div className="User">
+        <div className="name">{user.name}</div>
+        <div className="image"><img src={user.avatar} alt="profile" /></div>
       </div>
-    );
-  }
+    </div>
+  );
 }

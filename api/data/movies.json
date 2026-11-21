@@ -2,31 +2,59 @@
   "results": [
     {
       "id": 1,
-      "vote_average": 8.1,
-      "original_title": "Moby Dock",
-      "backdrop_path": "/posters/moby-dock.jpg",
-      "overview": "Captain Pod sails the seven clusters after the great white whale that carries every container he ever lost."
+      "original_title": "The Silence of the Logs",
+      "vote_average": 8.6,
+      "favorite": true,
+      "backdrop_path": "/posters/the-silence-of-the-logs.jpg",
+      "overview": "The pod is running and it answers its probes. It just won't say a word."
     },
     {
       "id": 2,
-      "vote_average": 7.4,
-      "original_title": "The Finalizer",
-      "backdrop_path": "/posters/the-finalizer.jpg",
-      "overview": "A namespace has been Terminating for three years. One finalizer stands between it and deletion, and he doesn't negotiate."
-    },
-    {
-      "id": 3,
-      "vote_average": 6.2,
       "original_title": "Crash Loop Backoff",
+      "vote_average": 6.2,
+      "favorite": true,
       "backdrop_path": "/posters/crash-loop-backoff.jpg",
       "overview": "A pod starts, crashes, waits a little longer, and starts again. And again. And again."
     },
     {
+      "id": 3,
+      "original_title": "A Nightmare on Helm Street",
+      "vote_average": 6.6,
+      "favorite": true,
+      "backdrop_path": "/posters/nightmare-on-helm-street.jpg",
+      "overview": "Every night, the same chart upgrades itself. Nobody remembers changing values.yaml."
+    },
+    {
       "id": 4,
-      "vote_average": 7.8,
-      "original_title": "Kube",
-      "backdrop_path": "/posters/kube.jpg",
-      "overview": "Seven strangers wake up inside a cluster with no documentation and one kubeconfig."
+      "original_title": "The Podfather",
+      "vote_average": 9.2,
+      "favorite": false,
+      "backdrop_path": "/posters/the-podfather.jpg",
+      "overview": "The head of the Deployment family makes every node a resource request it can't refuse."
+    },
+    {
+      "id": 5,
+      "original_title": "OOMKilled",
+      "vote_average": 8.3,
+      "favorite": false,
+      "backdrop_path": "/posters/oomkilled.jpg",
+      "overview": "She asked for 128Mi. She used 129. Now the kernel is coming for her."
+    },
+    {
+      "id": 6,
+      "original_title": "No Country for Old Nodes",
+      "vote_average": 8.1,
+      "favorite": false,
+      "backdrop_path": "/posters/no-country-for-old-nodes.jpg",
+      "overview": "A cluster upgrade drains the nodes one by one. The oldest pods have nowhere left to run."
+    },
+    {
+      "id": 7,
+      "original_title": "The Good, the Bad and the Evicted",
+      "vote_average": 8.8,
+      "favorite": false,
+      "backdrop_path": "/posters/the-good-the-bad-and-the-evicted.jpg",
+      "overview": "Three pods. One node. Not enough memory for all of them."
     }
   ]
 }

@@ -25,6 +25,12 @@ describe('Item', () => {
     expect(getByText('9.2 / 10')).toBeVisible();
   });
 
+  it('should render the star of the movie', () => {
+    const { getByRole } = render(<Item {...props} favorite />);
+
+    expect(getByRole('button', { name: 'Remove The Podfather from favorites' })).toBeVisible();
+  });
+
   it('should render the backdrop', () => {
     const { getByTestId } = render(<Item {...props} />);
 
