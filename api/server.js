@@ -2,6 +2,7 @@ const express = require("express");
 const { MongoClient } = require("mongodb");
 
 const app = express();
+app.use(express.json());
 
 const url = `mongodb://${process.env.MONGODB_USERNAME}:${encodeURIComponent(process.env.MONGODB_PASSWORD)}@${process.env.MONGODB_HOST}:27017/${process.env.MONGODB_DATABASE}`;
 
@@ -10,29 +11,45 @@ const client = new MongoClient(url, {
   connectTimeoutMS: 1000,
   socketTimeoutMS: 1000,
 });
-const db = client.db(process.env.MONGODB_DATABASE);
-
-async function find(collection) {
-  try {
-    return await db.collection(collection).find().toArray();
-  } catch (err) {
-    console.log(`failed to query ${collection}: ${err}`);
-    return [];
-  }
-}
+const movies = client.db(process.env.MONGODB_DATABASE).collection("movies");
 
 app.get("/api/healthz", (req, res) => {
   res.sendStatus(200);
 });
 
+// Every movie, with its favorite flag.
 app.get("/api/movies", async (req, res) => {
   console.log(`GET /api/movies`);
-  res.json(await find("movies"));
+  try {
+    res.json(await movies.find().sort({ _id: 1 }).toArray());
+  } catch (err) {
+    console.log(`failed to query movies: ${err}`);
+    res.json([]);
+  }
 });
 
-app.get("/api/watching", async (req, res) => {
-  console.log(`GET /api/watching`);
-  res.json(await find("watching"));
+// Add a movie to the favorites, or remove it from them: {"favorite": true}
+app.put("/api/movies/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  const favorite = req.body?.favorite;
+  console.log(`PUT /api/movies/${id} favorite=${favorite}`);
+  if (typeof favorite !== "boolean") {
+    return res.status(400).json({ error: "favorite must be true or false" });
+  }
+  try {
+    const movie = await movies.findOneAndUpdate(
+      { _id: id },
+      { $set: { favorite } },
+      { returnDocument: "after" },
+    );
+    if (!movie) {
+      return res.sendStatus(404);
+    }
+    res.json(movie);
+  } catch (err) {
+    console.log(`failed to update movie ${id}: ${err}`);
+    res.sendStatus(500);
+  }
 });
 
 app.get("/api", (req, res) => {

@@ -4,17 +4,15 @@ Instructions for coding agents (Claude Code and others) working in this reposito
 
 ## Project overview
 
-The Movies app: a React frontend (`frontend/`), a Node.js/Express API (`api/`), and a MongoDB
+Kube Movies: a React frontend (`frontend/`), a Node.js/Express API (`api/`), and a MongoDB
 database, deployed to Kubernetes with the Helm chart in `chart/`. End-to-end tests live in `e2e/`
 (Playwright). Everything is driven by the Okteto Manifest in `okteto.yaml`:
 
-- `build`: the application images of `frontend` and `api`, and their development images
-  (`frontend-dev` and `api-dev`, the `dev` stage of each `Dockerfile`)
+- `build`: the images of `frontend` and `api`
 - `deploy`: `helm upgrade --install movies chart` with the built images. The chart deploys the
   `frontend` and `api` services, MongoDB (official `mongo` image), and a `seed` job that loads the data
-- `test`: `frontend` (unit tests with Vitest) and `e2e` (Playwright against the deployed app)
-- `dev`: Development Containers for `api` (`node --watch`) and `frontend` (the Vite dev server),
-  for `okteto up`
+- `test`: `e2e` (Playwright against the deployed app). The unit tests of `frontend` (Vitest) and
+  `api` (Jest) aren't in the Okteto Manifest: run them with `npm test` in their folders
 
 Do not run the app or tests with local `npm`/`docker` as a substitute for the workflow below.
 Use the Okteto Manifest so that what you validate is what CI and Preview Environments run.
@@ -65,8 +63,7 @@ CLI configures `kubectl` for the current namespace) before changing anything.
 okteto test
 ```
 
-This runs every test container in the `test` section against the deployed environment. To run a
-single suite, use `okteto test frontend` or `okteto test e2e`. Playwright reports are written to
+This runs the `e2e` tests of the `test` section against the deployed environment. Playwright reports are written to
 `e2e/playwright-report/` and `e2e/test-results/`.
 
 All tests must pass before the change is considered done. If a test fails, read the output and the

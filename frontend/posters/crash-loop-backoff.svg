@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff7a3d"/><stop offset="1" stop-color="#c2185b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.13" stroke-width="40">
+    <circle cx="1230" cy="450" r="250"/><circle cx="1230" cy="450" r="380"/><circle cx="1230" cy="450" r="510"/>
+  </g>
+  <!-- the loop -->
+  <g transform="translate(1230 450)" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round">
+    <path d="M0,-170 A170,170 0 1 1 -147,-85"/>
+    <polygon points="-185,-150 -95,-120 -160,-55" fill="#fff" stroke="none"/>
+  </g>
+  <!-- a pod that fell over -->
+  <g transform="translate(1230 465) rotate(24)">
+    <polygon points="0,-78 68,-39 68,39 0,78 -68,39 -68,-39" fill="#2a0f24" stroke="#fff" stroke-width="7"/>
+    <g stroke="#fff" stroke-width="9" stroke-linecap="round">
+      <line x1="-36" y1="-22" x2="-14" y2="0"/><line x1="-14" y1="-22" x2="-36" y2="0"/>
+      <line x1="14" y1="-22" x2="36" y2="0"/><line x1="36" y1="-22" x2="14" y2="0"/>
+    </g>
+    <path d="M-26,36 Q0,16 26,36" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <g font-family="'Arial Black', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" fill="#fff">
+    <text x="110" y="330" font-size="150">CRASH</text>
+    <text x="110" y="480" font-size="150">LOOP</text>
+    <text x="110" y="630" font-size="150">BACKOFF</text>
+  </g>
+  <text x="114" y="712" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#ffe3d3">Start. Crash. Wait a little longer. Repeat.</text>
+  <text x="114" y="810" font-family="Helvetica, Arial, sans-serif" font-size="26" letter-spacing="6" fill="#ffd0bd">AN OKTETO ORIGINAL</text>
+</svg>

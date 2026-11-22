@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { UserProfile } from './UserProfile';
 
@@ -9,92 +9,67 @@ import userAvatarImage from '../assets/images/user.jpg';
 
 import './style.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const session = {
+  name: 'Cindy',
+  avatar: userAvatarImage
+};
 
-    this.state = {
-      movies: {
-        data: {},
-        loaded: false
-      },
-      watching: {
-        data: {},
-        loaded: false
-      },
-      session: {
-        name: 'Cindy',
-        lastName: 'Lopez',
-        username: 'cindy',
-        avatar: userAvatarImage
-      },
-      fixHeader: false
-    };
+function App() {
+  const [movies, setMovies] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [fixHeader, setFixHeader] = useState(false);
 
-    this.onScroll = this.onScroll.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     fetch('/api/movies')
       .then(res => res.json())
       .then(result => {
-        this.setState({
-          movies: {
-            data: result,
-            loaded: true
-          }
-        });
+        setMovies(result);
+        setLoaded(true);
       });
 
-    fetch('/api/watching')
+    const onScroll = () => setFixHeader(window.scrollY > 100);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Move a movie between the favorites and the rest of the movies
+  const toggleFavorite = (movie) => {
+    fetch(`/api/movies/${movie.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ favorite: !movie.favorite })
+    })
       .then(res => res.json())
-      .then(result => {
-        this.setState({
-          watching: {
-            data: result,
-            loaded: true
-          }
-        });
+      .then(updated => {
+        setMovies(current => current.map(item => (item.id === updated.id ? updated : item)));
       });
+  };
 
-    window.addEventListener('scroll', this.onScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
-  }
-
-  onScroll() {
-    this.setState({
-      fixHeader: window.scrollY > 100
-    });
-  }
-
-  render() {
-    const { movies, watching, session } = this.state;
-    return (
-      <div className="App">
-        <header className={`Header ${this.state.fixHeader ? 'fixed' : ''}`}>
-          <div className="content">
-            <div className="logo">Movies</div>
-            <ul className="menu">
-              <li className="selected">Home</li>
-              <li>Movies</li>
-              <li>My List</li>
-            </ul>
-            <UserProfile user={session} />
-          </div>
-        </header>
-        <Hero />
-        <TitleList title="Movies" titles={movies.data} loaded={movies.loaded} />
-        <TitleList
-          title={`Continue watching for ${session.name}`}
-          titles={watching.data}
-          loaded={watching.loaded}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <header className={`Header ${fixHeader ? 'fixed' : ''}`}>
+        <div className="content">
+          <div className="logo">Kube Movies</div>
+          <UserProfile user={session} />
+        </div>
+      </header>
+      <Hero />
+      <TitleList
+        title={`${session.name}'s Favorites`}
+        titles={movies.filter(movie => movie.favorite)}
+        loaded={loaded}
+        empty="No favorites yet. Click the star of a movie to add it."
+        onToggleFavorite={toggleFavorite}
+      />
+      <TitleList
+        title="Movies"
+        titles={movies.filter(movie => !movie.favorite)}
+        loaded={loaded}
+        empty="Every movie is a favorite."
+        onToggleFavorite={toggleFavorite}
+      />
+    </div>
+  );
 }
 
 export default App;

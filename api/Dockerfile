@@ -1,11 +1,4 @@
-FROM node:26.13.1-trixie-slim AS dev
-
-WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-
-FROM node:26.13.1-trixie-slim AS prod
+FROM node:26.13.1-trixie-slim
 
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./

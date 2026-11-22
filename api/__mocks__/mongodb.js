@@ -1,6 +1,7 @@
 class MongoClient {
-  static insertedMovies = [];
-  static insertedWatching = [];
+  static operations = [];
+  static deleted = null;
+  static updates = [];
 
   constructor(url, options) {
     this.url = url;
@@ -15,19 +16,27 @@ class MongoClient {
     return {
       collection: (collection) => ({
         find: () => ({
-          toArray: () => new Promise((resolve, reject) => {
-            if (collection === 'movies') {
-              resolve([{ title: 'The Matrix' }]);
-            } else if (collection === 'watching') {
-              resolve([{ title: 'The Godfather' }]);
-            } else {
-              reject('unknown collection');
-            }
+          sort: () => ({
+            toArray: () => new Promise((resolve, reject) => {
+              if (collection === 'movies') {
+                resolve([{ _id: 1, original_title: 'The Podfather', favorite: true }]);
+              } else {
+                reject('unknown collection');
+              }
+            })
           })
         }),
-        insertMany: (docs) => {
-          if (collection === 'movies') MongoClient.insertedMovies = docs;
-          if (collection === 'watching') MongoClient.insertedWatching = docs;
+        findOneAndUpdate: (filter, update) => {
+          MongoClient.updates.push({ filter, update });
+          // Only the movie with the id 1 exists
+          return Promise.resolve(filter._id === 1 ? { _id: 1, original_title: 'The Podfather', ...update.$set } : null);
+        },
+        bulkWrite: (operations) => {
+          if (collection === 'movies') MongoClient.operations = operations;
+          return Promise.resolve();
+        },
+        deleteMany: (filter) => {
+          if (collection === 'movies') MongoClient.deleted = filter;
           return Promise.resolve();
         }
       })
@@ -36,12 +45,9 @@ class MongoClient {
 
   static get mock() {
     return {
-      insertedMovies: MongoClient.insertedMovies,
-      insertedWatching: MongoClient.insertedWatching,
-      reset: () => {
-        MongoClient.insertedMovies = [];
-        MongoClient.insertedWatching = [];
-      }
+      operations: MongoClient.operations,
+      deleted: MongoClient.deleted,
+      updates: MongoClient.updates,
     }
   }
 }

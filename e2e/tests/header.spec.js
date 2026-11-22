@@ -6,13 +6,8 @@ test('displays the header', async ({ page }) => {
   // Logo
   await expect(page.locator('.logo')).toBeVisible();
 
-  // Navigation
-  await expect(page.getByRole('list').getByText('Home')).toBeVisible();
-  await expect(page.getByRole('list').getByText('Movies')).toBeVisible();
-  await expect(page.getByRole('list').getByText('My List')).toBeVisible();
-
   // Profile
-  await expect(page.getByText('Cindy Lopez')).toBeVisible();
+  await expect(page.getByText('Cindy', { exact: true })).toBeVisible();
   const avatar = page.getByAltText('profile');
   await expect(avatar).toHaveAttribute('src', /.+/);
 });

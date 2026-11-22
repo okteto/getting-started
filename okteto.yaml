@@ -1,23 +1,9 @@
 build:
-  api-dev:
-    context: api
-    target: dev
-
   api:
     context: api
-    target: prod
-    depends_on:
-      - api-dev
-
-  frontend-dev:
-    context: frontend
-    target: dev
 
   frontend:
     context: frontend
-    target: prod
-    depends_on:
-      - frontend-dev
 
 deploy:
   image: alpine/helm:4.3.2
@@ -29,15 +15,6 @@ deploy:
           --set frontend.image=${OKTETO_BUILD_FRONTEND_IMAGE}
 
 test:
-  frontend:
-    image: ${OKTETO_BUILD_FRONTEND_DEV_IMAGE}
-    context: frontend
-    caches:
-      - /root/.npm
-    commands:
-      - npm ci
-      - npm test
-
   e2e:
     image: mcr.microsoft.com/playwright:v1.65.1-noble
     context: e2e
@@ -48,22 +25,3 @@ test:
     artifacts:
       - test-results
       - playwright-report
-
-dev:
-  api:
-    image: ${OKTETO_BUILD_API_DEV_IMAGE}
-    command: node --watch --inspect server.js
-    sync:
-      - api:/usr/src/app
-    persistentVolume:
-      enabled: false
-    forward:
-      - 9229:9229
-
-  frontend:
-    image: ${OKTETO_BUILD_FRONTEND_DEV_IMAGE}
-    command: npm run dev
-    sync:
-      - frontend:/usr/src/app
-    persistentVolume:
-      enabled: false

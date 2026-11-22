@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+<rect width="1600" height="900" fill="#ffd60a"/>
+<rect x="0" y="0" width="1600" height="900" fill="none"/>
+<polygon points="0,720 1600,640 1600,700 0,790" fill="#111"/>
+<rect x="1090" y="535" width="46" height="120" fill="#111"/><rect x="1160" y="485" width="46" height="170" fill="#111"/><rect x="1230" y="425" width="46" height="230" fill="#111"/><rect x="1300" y="355" width="46" height="300" fill="#111"/><rect x="1370" y="275" width="46" height="380" fill="#111"/><rect x="1440" y="175" width="46" height="480" fill="#c1121f"/><rect x="1510" y="85" width="46" height="570" fill="#c1121f"/>
+<line x1="1040" y1="250" x2="1570" y2="250" stroke="#c1121f" stroke-width="8" stroke-dasharray="22 14"/>
+<text x="1040" y="228" text-anchor="start" font-family="Menlo, Consolas, monospace" font-size="30" fill="#c1121f">limits.memory: 128Mi</text>
+<text x="110" y="330" font-family="'Arial Black', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="170" fill="#111">OOM</text>
+<text x="110" y="490" font-family="'Arial Black', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="170" fill="#c1121f">KILLED</text>
+<text x="114" y="560" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="40" fill="#111">She asked for more memory.</text><text x="114" y="612" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="40" fill="#111">The kernel said no.</text>
+<text x="114" y="850" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="26" letter-spacing="6" fill="#6b5900">AN OKTETO ORIGINAL</text></svg>

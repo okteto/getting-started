@@ -7,19 +7,21 @@ const database = process.env.MONGODB_DATABASE;
 
 const url = `mongodb://${user}:${password}@${host}:27017/${database}`;
 
+// The movies stored in MongoDB, split into the favorites and the rest
 export const getStoredData = async () => {
   const client = new MongoClient(url);
-  
+
   client.on('error', (error) => {
     console.error(`Error connecting to the database: ${error}`);
   });
-  
-  const db = client.db(process.env.MONGODB_DATABASE);
 
-  const [movies, watching] = await Promise.all([
-    db.collection('movies').find().limit(4).toArray(),
-    db.collection('watching').find().limit(4).toArray(),
-  ]);
-
-  return { movies, watching };
+  try {
+    const movies = await client.db(database).collection('movies').find().sort({ _id: 1 }).toArray();
+    return {
+      favorites: movies.filter((movie) => movie.favorite),
+      movies: movies.filter((movie) => !movie.favorite),
+    };
+  } finally {
+    await client.close();
+  }
 };
