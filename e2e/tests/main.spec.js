@@ -4,7 +4,7 @@ test('has title', async ({ page }) => {
   await page.goto('/');
 
   // The page title
-  await expect(page).toHaveTitle('Movies');
+  await expect(page).toHaveTitle('Kube Movies');
 });
 
 test('matches screenshot', async ({ page }) => {

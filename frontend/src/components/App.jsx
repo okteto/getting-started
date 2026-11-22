@@ -49,7 +49,7 @@ function App() {
     <div className="App">
       <header className={`Header ${fixHeader ? 'fixed' : ''}`}>
         <div className="content">
-          <div className="logo">Movies</div>
+          <div className="logo">Kube Movies</div>
           <UserProfile user={session} />
         </div>
       </header>

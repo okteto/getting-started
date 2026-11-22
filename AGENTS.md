@@ -4,7 +4,7 @@ Instructions for coding agents (Claude Code and others) working in this reposito
 
 ## Project overview
 
-The Movies app: a React frontend (`frontend/`), a Node.js/Express API (`api/`), and a MongoDB
+Kube Movies: a React frontend (`frontend/`), a Node.js/Express API (`api/`), and a MongoDB
 database, deployed to Kubernetes with the Helm chart in `chart/`. End-to-end tests live in `e2e/`
 (Playwright). Everything is driven by the Okteto Manifest in `okteto.yaml`:
 
